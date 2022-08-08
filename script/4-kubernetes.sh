@@ -8,12 +8,17 @@ mkdir -p $HOME/.kube
 sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+for i in {20..1}; do
+  echo "[i] waiting kubeadm init $i"
+  sleep 1
+done
+
 c1=$(kubectl get pods -A | grep -c "Running")
 c2=$(kubectl get pods -A | grep -c "Pending")
 while [ $c1 -ne 5 ] || [ $c2 -ne 2 ]
 do
   sleep 1
-  echo "[i] waiting..."
+  echo "[i] waiting coredns pending"
   c1=$(kubectl get pods -A | grep -c "Running")
   c2=$(kubectl get pods -A | grep -c "Pending")
 done
@@ -27,12 +32,17 @@ kubectl apply -f /vagrant/conf/kube-flannel-0.18.1.yml
 
 kubectl taint node --all node-role.kubernetes.io/control-plane:NoSchedule-
 
+for i in {10..1}; do
+  echo "[i] waiting taint nodes $i"
+  sleep 1
+done
+
 c1=$(kubectl get pods -A | grep -c "Running")
 c2=$(kubectl get pods -A | grep -c "Pending")
 while [ $c1 -ne 8 ] || [ $c2 -ne 0 ]
 do
   sleep 1
-  echo "[i] waiting..."
+  echo "[i] waiting flannel running"
   c1=$(kubectl get pods -A | grep -c "Running")
   c2=$(kubectl get pods -A | grep -c "Pending")
 done
@@ -41,7 +51,10 @@ echo "[+] flannel running done"
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
-sleep 10
+for i in {10..1}; do
+  echo "[i] waiting taint nodes $i"
+  sleep 1
+done
 
 kubectl apply -f https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/v3.9/deployments/multus-daemonset-thick-plugin.yml
 
@@ -50,11 +63,11 @@ c2=$(kubectl get pods -A | grep -c "Pending")
 while [ $c1 -ne 9 ] || [ $c2 -ne 0 ]
 do
   sleep 1
-  echo "[i] waiting..."
+  echo "[i] waiting multus running"
   c1=$(kubectl get pods -A | grep -c "Running")
   c2=$(kubectl get pods -A | grep -c "Pending")
 done
 sleep 3
 echo "[+] multus running done"
 
-echo "[+] ALL DONE"
+echo "[+] kubernetes init finished"

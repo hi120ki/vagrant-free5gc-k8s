@@ -8,7 +8,7 @@ c1=$(kubectl get pods -n free5gc | grep -c "Running")
 while [ $c1 -ne 13 ]
 do
   sleep 1
-  echo "[i] waiting..."
+  echo "[i] waiting install ueransim"
   c1=$(kubectl get pods -n free5gc | grep -c "Running")
 done
 sleep 3
