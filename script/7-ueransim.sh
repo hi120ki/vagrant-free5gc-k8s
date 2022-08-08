@@ -11,8 +11,11 @@ do
   echo "[i] waiting install ueransim"
   c1=$(kubectl get pods -n free5gc | grep -c "Running")
 done
-sleep 3
-echo "[+] install ueransim done"
+
+for i in {10..1}; do
+  echo "[i] waiting install ueransim $i"
+  sleep 1
+done
 
 export UPF_POD_NAME=$(kubectl get pods --namespace free5gc -l "nf=upf" -o jsonpath="{.items[0].metadata.name}")
 export AMF_POD_NAME=$(kubectl get pods --namespace free5gc -l "nf=amf" -o jsonpath="{.items[0].metadata.name}")
