@@ -1,0 +1,15 @@
+name: run
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: macos-12
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run vagrant up
+        run: vagrant up
