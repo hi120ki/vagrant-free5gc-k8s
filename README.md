@@ -6,14 +6,11 @@ A demo to run free5gc k8s on vagrant
 
 ```
 git clone https://github.com/Orange-OpenSource/towards5gs-helm.git
-vagrant halt
-vagrant destroy -f
 vagrant up
 ```
 
 ## Requirements
 
-- ubuntu 20.04
 - virtualbox-6.1
 - vagrant
 
