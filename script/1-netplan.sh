@@ -45,6 +45,3 @@ fi
 
 echo "[i] netplan apply"
 sudo netplan apply
-
-echo "[i] show ip address"
-ip address

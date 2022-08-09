@@ -17,6 +17,9 @@ for i in {10..1}; do
   sleep 1
 done
 
+echo "[i] show host ip address"
+ip address
+
 export UPF_POD_NAME=$(kubectl get pods --namespace free5gc -l "nf=upf" -o jsonpath="{.items[0].metadata.name}")
 export AMF_POD_NAME=$(kubectl get pods --namespace free5gc -l "nf=amf" -o jsonpath="{.items[0].metadata.name}")
 export SMF_POD_NAME=$(kubectl get pods --namespace free5gc -l "nf=smf" -o jsonpath="{.items[0].metadata.name}")
