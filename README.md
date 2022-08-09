@@ -5,6 +5,7 @@ A demo to run free5gc k8s on vagrant
 ## Quick start
 
 ```
+git clone https://github.com/Orange-OpenSource/towards5gs-helm.git
 vagrant halt
 vagrant destroy -f
 vagrant up

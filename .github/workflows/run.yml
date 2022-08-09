@@ -12,5 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: git clone towards5gs-helm
+        run: git clone https://github.com/Orange-OpenSource/towards5gs-helm.git
+
       - name: Run vagrant up
         run: vagrant up

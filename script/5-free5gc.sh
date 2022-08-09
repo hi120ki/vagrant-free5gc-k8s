@@ -19,8 +19,7 @@ for i in {20..1}; do
 done
 
 echo "[i] install free5gc"
-git clone https://github.com/Orange-OpenSource/towards5gs-helm.git ~/towards5gs-helm
-helm -n free5gc install free5gc-v1 ~/towards5gs-helm/charts/free5gc
+helm -n free5gc install free5gc-v1 /vagrant/towards5gs-helm/charts/free5gc
 
 c1=$(kubectl get pods -n free5gc | grep -c "Running")
 while [ $c1 -ne 11 ]

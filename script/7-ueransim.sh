@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 
-helm -n free5gc install ueransim-v1 ~/towards5gs-helm/charts/ueransim/
+helm -n free5gc install ueransim-v1 /vagrant/towards5gs-helm/charts/ueransim/
 
 c1=$(kubectl get pods -n free5gc | grep -c "Running")
 while [ $c1 -ne 13 ]
