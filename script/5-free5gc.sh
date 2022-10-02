@@ -21,12 +21,12 @@ done
 echo "[i] install free5gc"
 helm -n free5gc install free5gc-v1 /vagrant/towards5gs-helm/charts/free5gc
 
-c1=$(kubectl get pods -n free5gc | grep -c "Running")
+c1=$(kubectl get pods -n free5gc | grep -c "Running") || true
 while [ $c1 -ne 11 ]
 do
   sleep 5
   echo "[i] waiting install free5gc"
-  c1=$(kubectl get pods -n free5gc | grep -c "Running")
+  c1=$(kubectl get pods -n free5gc | grep -c "Running") || true
   kubectl get pods -n free5gc
 done
 sleep 3

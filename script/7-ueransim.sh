@@ -4,12 +4,12 @@ cd $(dirname $0)
 
 helm -n free5gc install ueransim-v1 /vagrant/towards5gs-helm/charts/ueransim/
 
-c1=$(kubectl get pods -n free5gc | grep -c "Running")
+c1=$(kubectl get pods -n free5gc | grep -c "Running") || true
 while [ $c1 -ne 13 ]
 do
   sleep 1
   echo "[i] waiting install ueransim"
-  c1=$(kubectl get pods -n free5gc | grep -c "Running")
+  c1=$(kubectl get pods -n free5gc | grep -c "Running") || true
 done
 
 for i in {10..1}; do

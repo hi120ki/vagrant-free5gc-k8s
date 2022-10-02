@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.56.202"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.cpus = 3
+    vb.cpus = 4
     vb.memory = 8192
   end
 
@@ -13,12 +13,12 @@ Vagrant.configure("2") do |config|
     config.vbguest.auto_update = false
   end
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    bash /vagrant/script/1-netplan.sh
-    bash /vagrant/script/2-base.sh
-    bash /vagrant/script/3-kubeadm.sh
-    bash /vagrant/script/4-kubernetes.sh
-    bash /vagrant/script/5-free5gc.sh
-    bash /vagrant/script/6-subscribe.sh
-    bash /vagrant/script/7-ueransim.sh
+    bash -eu /vagrant/script/1-netplan.sh
+    bash -eu /vagrant/script/2-base.sh
+    curl -fsSL https://raw.githubusercontent.com/hi120ki/vagrant-k8s-flannel/main/install.sh | bash -eu -s -- 192.168.56.202
+    bash -eu /vagrant/script/4-multus.sh
+    bash -eu /vagrant/script/5-free5gc.sh
+    bash -eu /vagrant/script/6-subscribe.sh
+    bash -eu /vagrant/script/7-ueransim.sh
   SHELL
 end
